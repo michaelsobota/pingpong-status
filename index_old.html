@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Ping-Pong Status</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script>
+			$.ajax({
+	    		url:'https://s3-us-west-2.amazonaws.com/pingpong-status/pingpong-current-status',
+	    		crossDomain: true,
+	    		success:function(data){
+	        		var jsonData = jQuery.parseJSON(data);
+	        		$('h2.status').text(jsonData.pingpong);
+	    		}
+			})
+		</script>
+	</head>
+	<body>
+		<h2 class="status"></h2>
+		<script>
+		setInterval(function() {
+			$.ajax({
+	    		url:'https://s3-us-west-2.amazonaws.com/pingpong-status/pingpong-current-status',
+	    		crossDomain: true,
+	    		success:function(data){
+	        		var jsonData = jQuery.parseJSON(data);
+	        		$('h2.status').text(jsonData.pingpong);
+	        		console.log("status is "+jsonData.pingpong);
+	    		}
+			})
+		}, 10000)
+		</script>
+	</body>
+</html>
